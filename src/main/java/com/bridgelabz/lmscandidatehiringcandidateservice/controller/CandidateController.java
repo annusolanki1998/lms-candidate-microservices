@@ -19,28 +19,50 @@ public class CandidateController {
     @Autowired
     ICandidateService candidateService;
 
+    /*
+     * Purpose: Welcome to candidate service
+     * @author: Annu kumari
+     * */
+
     @GetMapping("/welcome")
     public String welcomeMessage() {
         return "Welcome to LMS Spring application project";
     }
 
+    /*
+     * Purpose: Create candidate details
+     * @author: Annu Kumari
+     * @Param: candidateDTO and token
+     * */
 
     @PostMapping("/addcandidate")
     public ResponseEntity<ResponseUtil> addCandidate(@Valid @RequestBody CandidateDTO candidateDTO,
                                                      @RequestHeader String token) {
-        ResponseUtil responseUtil = candidateService.addCandidate(candidateDTO,token);
+        ResponseUtil responseUtil = candidateService.addCandidate(candidateDTO, token);
         return new ResponseEntity<>(responseUtil, HttpStatus.OK);
 
     }
+
+    /*
+     * Purpose: Update existing candidate details by using id
+     * @author: Annu Kumari
+     * @Param: id,candidateDTO,and token
+     * */
 
 
     @PutMapping("/updatecandidate/{id}")
     public ResponseEntity<ResponseUtil> updateCandidate(@PathVariable Long id,
                                                         @RequestHeader String token,
                                                         @Valid @RequestBody CandidateDTO candidateDTO) {
-        ResponseUtil responseUtil = candidateService.updateCandidate(candidateDTO,token,id);
+        ResponseUtil responseUtil = candidateService.updateCandidate(candidateDTO, token, id);
         return new ResponseEntity<>(responseUtil, HttpStatus.OK);
     }
+
+    /*
+     * Purpose: Retrieve all candidates details
+     * @author: Annu Kumari
+     * @Param: token
+     * */
 
     @GetMapping("/getcandidates")
     public ResponseEntity<List<?>> getCandidates(@RequestHeader String token) {
@@ -49,20 +71,38 @@ public class CandidateController {
 
     }
 
+    /*
+     * Purpose: Delete existing candidate details by using id
+     * @author: Annu Kumari
+     * @Param: id and token
+     * */
+
 
     @DeleteMapping("deletecandidate/{id}")
     public ResponseEntity<ResponseUtil> deleteCandidate(@PathVariable Long id,
                                                         @RequestHeader String token) {
-        ResponseUtil responseUtil = candidateService.deleteCandidate(token,id);
+        ResponseUtil responseUtil = candidateService.deleteCandidate(token, id);
         return new ResponseEntity<>(responseUtil, HttpStatus.OK);
     }
 
+    /*
+     * Purpose: Retrieve existing candidate details by using id
+     * @author: Annu Kumari
+     * @Param: id and token
+     * */
+
     @GetMapping("getcandidate/{id}")
     public ResponseEntity<ResponseUtil> getCandidate(@PathVariable Long id,
-                                       @RequestHeader String token) {
-        ResponseUtil responseUtil = candidateService.getCandidate(token,id);
+                                                     @RequestHeader String token) {
+        ResponseUtil responseUtil = candidateService.getCandidate(token, id);
         return new ResponseEntity<>(responseUtil, HttpStatus.OK);
     }
+
+    /*
+     * Purpose: Retrieve count of candidate by using candidate status
+     * @author: Annu Kumari
+     * @Param: status and token
+     * */
 
     @GetMapping("/countByStatus")
     public ResponseEntity<Long> getCountByStatus(@RequestHeader String token,

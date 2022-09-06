@@ -5,6 +5,12 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+/*
+ * Purpose : CandidateDTO are used to create and update candidate details
+ * Version : 1.0
+ * @author : Annu Kumari
+ * */
+
 @Data
 public class CandidateDTO {
     @NotNull(message = "Cic id should not be empty")

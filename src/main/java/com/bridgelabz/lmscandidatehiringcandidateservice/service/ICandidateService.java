@@ -6,6 +6,13 @@ import com.bridgelabz.lmscandidatehiringcandidateservice.util.ResponseUtil;
 
 import java.util.List;
 
+/**
+ * Purpose: Creating interface for candidate service
+ * @author: Annu Kumari
+ * @Param:  All service methods
+ * Version: 1.0
+ */
+
 public interface ICandidateService {
 
 

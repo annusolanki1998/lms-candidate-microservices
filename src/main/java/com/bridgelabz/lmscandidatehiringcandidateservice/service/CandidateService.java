@@ -14,6 +14,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Purpose: Creating service for candidate
+ *
+ * @author: Annu Kumari
+ * @Param: business logic is present here
+ * Version: 1.0
+ */
+
 @Service
 public class CandidateService implements ICandidateService {
 
@@ -27,9 +35,16 @@ public class CandidateService implements ICandidateService {
     @Autowired
     RestTemplate restTemplate;
 
+    /**
+     * Purpose: Creating method to add candidate details
+     *
+     * @author: Annu Kumari
+     * @Param: candidateDto
+     */
+
     @Override
     public ResponseUtil addCandidate(CandidateDTO candidateDTO, String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/admin/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://EUREKA-ADMIN-CLIENT:8081/admin/validate/" + token, Boolean.class);
         if (isUserPresent) {
             CandidateModel candidateModel = new CandidateModel(candidateDTO);
             candidateModel.setCreationTimeStamp(LocalDateTime.now());
@@ -42,10 +57,17 @@ public class CandidateService implements ICandidateService {
         throw new CandidateNotFoundException(400, "Token is wrong");
     }
 
+    /**
+     * Purpose: Creating method to update existing candidate details
+     *
+     * @author: Annu Kumari
+     * @Param: candidateDto, id and token
+     */
+
 
     @Override
     public ResponseUtil updateCandidate(CandidateDTO candidateDTO, String token, Long id) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/admin/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://EUREKA-ADMIN-CLIENT:8081/admin/validate/" + token, Boolean.class);
         if (isUserPresent) {
             Optional<CandidateModel> isCandidatePresent = candidateRepository.findById(id);
             if (isCandidatePresent.isPresent()) {
@@ -76,10 +98,17 @@ public class CandidateService implements ICandidateService {
         throw new CandidateNotFoundException(400, "Token is wrong");
     }
 
+    /**
+     * Purpose: Creating method to get candidate details
+     *
+     * @author: Annu Kumari
+     * @Param: token
+     */
+
 
     @Override
     public List<CandidateModel> getCandidates(String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/admin/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://EUREKA-ADMIN-CLIENT:8081/admin/validate/" + token, Boolean.class);
         if (isUserPresent) {
             List<CandidateModel> isCandidatePresent = candidateRepository.findAll();
             if (isCandidatePresent.size() > 0) {
@@ -91,10 +120,17 @@ public class CandidateService implements ICandidateService {
         throw new CandidateNotFoundException(400, "Token is wrong");
     }
 
+    /**
+     * Purpose: Creating method to delete existing candidate details
+     *
+     * @author: Annu Kumari
+     * @Param: id and token
+     */
+
 
     @Override
     public ResponseUtil deleteCandidate(String token, Long id) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/admin/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://EUREKA-ADMIN-CLIENT:8081/admin/validate/" + token, Boolean.class);
         if (isUserPresent) {
             Optional<CandidateModel> isCandidatePresent = candidateRepository.findById(id);
             if (isCandidatePresent.isPresent()) {
@@ -107,11 +143,18 @@ public class CandidateService implements ICandidateService {
         throw new CandidateNotFoundException(400, "Token is wrong");
     }
 
+    /**
+     * Purpose: Creating method to get candidate details
+     *
+     * @author: Annu Kumari
+     * @Param: id and token
+     */
+
     @Override
     public ResponseUtil getCandidate(String token, Long id) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/admin/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://EUREKA-ADMIN-CLIENT:8081/admin/validate/" + token, Boolean.class);
         if (isUserPresent) {
-                    Optional<CandidateModel> isCandidatePresent = candidateRepository.findById(id);
+            Optional<CandidateModel> isCandidatePresent = candidateRepository.findById(id);
             if (isCandidatePresent.isPresent()) {
                 return new ResponseUtil(200, "Sucessfully", isCandidatePresent.get());
             } else {
@@ -119,13 +162,17 @@ public class CandidateService implements ICandidateService {
             }
         }
         throw new CandidateNotFoundException(400, "Token is wrong");
-        }
+    }
 
-
+    /**
+     * Purpose: Creating method to get count of candidate status
+     * @author: Annu Kumari
+     * @Param: status and token
+     */
 
     @Override
     public Long getCountByStatus(String token, String status) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8080/admin/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://EUREKA-ADMIN-CLIENT:8080/admin/validate/" + token, Boolean.class);
         if (isUserPresent) {
             Long isCandidate = candidateRepository.getCountByStatus(status);
             return isCandidate;

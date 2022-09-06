@@ -6,6 +6,12 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/*
+ * Purpose : CandidateModel are used to transfer the data into database
+ * Version : 1.0
+ * @author : Annu Kumari
+ * */
+
 @Data
 @Entity
 @Table(name = "candidate")

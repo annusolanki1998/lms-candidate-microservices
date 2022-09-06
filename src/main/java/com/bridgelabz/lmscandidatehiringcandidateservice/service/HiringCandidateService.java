@@ -14,6 +14,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Purpose: Creating service for hiring candidate
+ *
+ * @author: Annu Kumari
+ * @Param: business logic is present here
+ * Version: 1.0
+ */
+
 @Service
 public class HiringCandidateService implements IHiringCandidateService {
 
@@ -22,17 +30,21 @@ public class HiringCandidateService implements IHiringCandidateService {
 
     @Autowired
     TokenUtil tokenUtil;
-
     @Autowired
     MailService mailService;
-
     @Autowired
     RestTemplate restTemplate;
 
+    /**
+     * Purpose: Creating method to add hiring candidate details
+     *
+     * @author: Annu Kumari
+     * @Param: hiringCandidateDto
+     */
 
     @Override
     public ResponseUtil addHiringCandidate(HiringCandidateDTO hiringCandidateDTO, String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/admin/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://EUREKA-ADMIN-CLIENT:8081/admin/validate/" + token, Boolean.class);
         if (isUserPresent) {
             HiringCandidateModel hiringCandidateModel = new HiringCandidateModel(hiringCandidateDTO);
             hiringCandidateModel.setCreationTimeStamp(LocalDateTime.now());
@@ -45,9 +57,16 @@ public class HiringCandidateService implements IHiringCandidateService {
         throw new CandidateNotFoundException(400, "Token is wrong");
     }
 
+    /**
+     * Purpose: Creating method to update existing hiring candidate details
+     *
+     * @author: Annu Kumari
+     * @Param: hiringCandidateDto, id and token
+     */
+
     @Override
     public ResponseUtil updateHiringCandidate(HiringCandidateDTO hiringCandidateDTO, String token, Long id) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/admin/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://EUREKA-ADMIN-CLIENT:8081/admin/validate/" + token, Boolean.class);
         if (isUserPresent) {
             Optional<HiringCandidateModel> isCandidatePresent = hiringCandidateRepository.findById(id);
             if (isCandidatePresent.isPresent()) {
@@ -79,10 +98,17 @@ public class HiringCandidateService implements IHiringCandidateService {
 
     }
 
+    /**
+     * Purpose: Creating method to get hiring candidate details
+     *
+     * @author: Annu Kumari
+     * @Param: token
+     */
+
 
     @Override
     public List<HiringCandidateModel> getHiringCandidates(String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/admin/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://EUREKA-ADMIN-CLIENT:8081/admin/validate/" + token, Boolean.class);
         if (isUserPresent) {
             List<HiringCandidateModel> isCandidatePresent = hiringCandidateRepository.findAll();
             if (isCandidatePresent.size() > 0) {
@@ -91,13 +117,19 @@ public class HiringCandidateService implements IHiringCandidateService {
                 throw new CandidateNotFoundException(400, "No candidate is present");
             }
         }
-
         throw new CandidateNotFoundException(400, "Token is wrong");
     }
 
+    /**
+     * Purpose: Creating method to delete existing hiring candidate details
+     *
+     * @author: Annu Kumari
+     * @Param: id and token
+     */
+
     @Override
     public ResponseUtil deleteHiringCandidate(String token, Long id) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/admin/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://EUREKA-ADMIN-CLIENT:8081/admin/validate/" + token, Boolean.class);
         if (isUserPresent) {
             Optional<HiringCandidateModel> isCandidatePresent = hiringCandidateRepository.findById(id);
             if (isCandidatePresent.isPresent()) {
@@ -110,10 +142,16 @@ public class HiringCandidateService implements IHiringCandidateService {
         throw new CandidateNotFoundException(400, "Token is wrong");
     }
 
+    /**
+     * Purpose: Creating method to get hiring candidate details
+     *
+     * @author: Annu Kumari
+     * @Param: id and token
+     */
 
     @Override
     public ResponseUtil getHiringCandidate(String token, Long id) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:8081/admin/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://EUREKA-ADMIN-CLIENT:8081/admin/validate/" + token, Boolean.class);
         if (isUserPresent) {
             Optional<HiringCandidateModel> isCandidatePresent = hiringCandidateRepository.findById(id);
             if (isCandidatePresent.isPresent()) {

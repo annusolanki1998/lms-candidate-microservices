@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class CandidateExceptionHandler {
 
+    /*
+     * Purpose : CandidateNotFoundException is used to handle the exceptions
+     * Version : 1.0
+     * @author : Annu kumari
+     * */
+
     @ExceptionHandler(CandidateNotFoundException.class)
     public ResponseEntity<Response> handlerHiringException(CandidateNotFoundException exception) {
         Response response = new Response();
@@ -20,6 +26,12 @@ public class CandidateExceptionHandler {
         response.setMessage(exception.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    /*
+     * Purpose : MethodArgumentNotValidException is used to handle the exceptions
+     * Version : 1.0
+     * @author : Annu kumari
+     * */
 
 
     // Using custom exception for handling the error of validation part
